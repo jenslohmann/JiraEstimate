@@ -39,6 +39,12 @@ console.log('Clicked.')
     let mce_edit_area = document.getElementsByClassName('mce-edit-area')[0];
     if (mce_edit_area == null) {
         console.log("mce_edit_area not found.")
+        alert('To use this macro, the browser should display (probably a specific version of) JIRA,' +
+            ' and you should be editing an issue.' +
+            '\n\n' +
+            'You should write some estimates - one per line (e.g. \'Coding - 5h\' and \'Testing - 1h30m\'). ' +
+            'The macro will sum this up to 410m (410 minutes == 6 hours and 30 minutes).\n' +
+            'If you click OK, it will put this estimate in the estimate field; Cancel will not.')
     } else {
         let iframe = mce_edit_area.firstChild
         let innerDoc = iframe.contentDocument
