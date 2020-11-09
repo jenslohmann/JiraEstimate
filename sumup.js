@@ -50,11 +50,13 @@ console.log('Clicked.')
             let response = ''
             let estimateInM = 0
             let nodes = tinyMce.childNodes;
-            if (nodes != null) {
+            if (nodes == null) {
+                console.log('No child nodes - hence no estimates.')
+            } else {
                 Array.from(nodes).forEach((item) => {
                     let est = 0
                     regexes.some((helper) => {
-                        if(helper.regex.exec(item.textContent)) {
+                        if (helper.regex.exec(item.textContent)) {
                             est = helper.minutesFor(item.textContent)
                             response += item.textContent + ": " + est + 'm\n'
                             console.log(item.textContent + ": " + est)
@@ -66,9 +68,14 @@ console.log('Clicked.')
                     }
                 })
                 console.log('Total: ' + estimateInM + 'm')
-                alert(response + '----------------\nTotal: ' + estimateInM + 'm (' + (estimateInM/60).toFixed(2) + 'h)')
-            } else {
-                console.log('No child nodes.')
+                if (confirm(response + '----------------\nTotal: ' + estimateInM + 'm (' + (estimateInM / 60).toFixed(2) + 'h)')) {
+                    estimateField = document.getElementById('timetracking_originalestimate')
+                    if (estimateField == null) {
+                        console.log("Estimate field not found.")
+                    } else {
+                        estimateField.value = estimateInM + 'm'
+                    }
+                }
             }
         }
     }
